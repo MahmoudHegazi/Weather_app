@@ -1,6 +1,5 @@
 // Please note I use normal notepad to write this app (0 code editor, 2% version control)
-// I used adobe animation format code feature to fix the code look and spaces 
-// this do more than  x8required
+// I used adobe animation format code feature to fix the code look and spaces
 const comment_database = [];
 
 /* Global Variables */
@@ -20,7 +19,7 @@ let rec_country = document.getElementById("recent_country");
 const mybutton = document.getElementById("generate");
 const img = document.getElementById("mimage");
 const img_text = document.getElementById("image_country");
-
+const comment_cont = document.getElementById("comments");
 let sunny = "msun.gif";
 let msunny = "sun.gif";
 let mcold = "vcold.gif";
@@ -100,6 +99,14 @@ mybutton.addEventListener("click", myapp);
 
 function myapp() {
         postData('/comment', {content:feeling.value});
+
+       if (feeling.value != '') {
+        var btn = document.createElement("div");
+        var text = document.createTextNode(feeling.value);
+        btn.appendChild(text);
+        btn.className = "comment";
+        comment_cont.appendChild(btn);
+       }
 	let url = "http://api.openweathermap.org/data/2.5/weather?zip=" + user_zip.value + "&appid=db6608063a9d72758e29ea323da07bd1";
 	if (user_zip.value != "") {
 		fetch(url, settings)
@@ -140,7 +147,7 @@ function myapp() {
 	} else {
 		alert('You Must Add ZIP Code');
 	}
-getcontent();
+//getcontent();
 // call get request to get the last comment This server awesome
 showcomment();
 }
@@ -168,20 +175,6 @@ const postData = async (url = '', data = {})=>{
   }
  
 
-// this to add all comments youtube style
-function getcontent() {
-fetch('/getcomment', settings)
-	.then(res => res.json())
-	.then((json) => {
-
-          json.forEach(function (arrayItem) {
-          var x = arrayItem.content;   
-          comment_database.push(x);
-          console.log(comment_database);
-          
-       });
-	});
-}
 
 
 function showcomment() {
