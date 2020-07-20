@@ -9,10 +9,15 @@ const mytemp = document.getElementById("temp");
 const mydate = document.getElementById("date");
 const entery = document.getElementById("content");
 const img = document.getElementById("mimage");
+const img_text = document.getElementById("image_country");
+
 let sunny  = "msun.gif";
 let msunny = "sun.gif";
 let mcold = "vcold.gif";
 let vcold = "cold.gif";
+
+let current_img = "";
+let current_country = "";
 
 let wether = 'http://api.openweathermap.org/data/2.5/weather?id=3245&appid=db6608063a9d72758e29ea323da07bd1';
 //link for auto geo
@@ -33,19 +38,38 @@ fetch(url, settings)
         atemp.innerText = json.main['temp'];
         acountry.innerText = country;
         acity.innerText = city;
-     if (json.main['temp'] >= 30) {
-         img.src = sunny;
+     if (json.main['temp'] >= 290) {
+         //img.src = sunny;
+         current_img = sunny;
+         current_country = country;
+         img.src = current_img;
+         img_text.innerText = current_country;
+         alert('hi1');
     } 
-    if (json.main['temp'] >= 16) {
+    else if (json.main['temp'] >= 280) {
          img.src = msunny;
+         current_img = msunny;
+         current_country = country;
+         img_text.innerText = current_country;
+         alert('hi2');
     } 
     
-    if (json.main['temp'] >= 0) {
+    else if (json.main['temp'] >= 260) {
          img.src = mcold;
+         current_img = mcold;
+         current_country = country;
+         img_text.innerText = current_country;
+         alert('hi3');
     } 
-    if (json.main['temp'] < 0) {
-         img.src = vcold;
-    }
+    else if (json.main['temp'] < 260) {
+         current_img = vcold;
+         current_country = country;
+         img.src = current_img;
+         img_text.innerText = current_country;
+          alert('hi4');
+    } else {
+   alert('x');
+} 
     });
 };
 
