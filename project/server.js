@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+const projectData = [];
 const port = 8000;
 // Require Express to run server and routes
 const express = require('express');
@@ -21,9 +21,31 @@ app.use(express.static('website'));
 
 // Setup Server
 
-app.get('/', home);
+app.get('/lastcomment', home);
 function home(req, res) {
-  res.send('hello world');
+  let last_comment = projectData[projectData.length - 1];
+  console.log(last_comment.content);
+  res.send(last_comment);
+}
+
+// getlast comment
+
+
+// get all comments
+app.get('/getcomment', database);
+function database(req, res) {
+  res.send(projectData);
+}
+
+
+// post
+app.post('/comment', addToDatabase);
+function addToDatabase(req, res) {
+  projectData.push(req.body);  
+  projectData.forEach(function (arrayItem) {	  
+    var x = arrayItem.content;
+    console.log(x);
+});
 }
 
 app.listen(port, listing);
