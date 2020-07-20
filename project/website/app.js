@@ -1,4 +1,10 @@
 /* Global Variables */
+/* auto */
+const acountry = document.getElementById("auto_country");
+const acity = document.getElementById("auto_city");
+const atemp = document.getElementById("auto_temp");
+
+/* normal global */
 const mytemp = document.getElementById("temp");
 const mydate = document.getElementById("date");
 const entery = document.getElementById("content");
@@ -24,9 +30,9 @@ function xd(url, country, city) {
 fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        mytemp.innerText = "temp at " + city + ": " + json.main['temp'];
-        mydate.innerText = "You Are From: " + country;
-        entery.innerText = "Your City is: " + city;
+        atemp.innerText = json.main['temp'];
+        acountry.innerText = country;
+        acity.innerText = city;
      if (json.main['temp'] >= 30) {
          img.src = sunny;
     } 
