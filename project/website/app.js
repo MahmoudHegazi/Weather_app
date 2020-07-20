@@ -44,7 +44,8 @@ fetch(url, settings)
         atemp.innerText = json.main['temp'];
         acountry.innerText = country;
         acity.innerText = city;
-     if (json.main['temp'] >= 290) {
+
+     if (json.main['temp'] >= 296) {
          //img.src = sunny;
          current_img = sunny;
          current_country = city;
@@ -52,7 +53,7 @@ fetch(url, settings)
          img_text.innerText = current_country;
          alert('hi1');
     } 
-    else if (json.main['temp'] >= 280) {
+    else if (json.main['temp'] >= 285) {
          img.src = msunny;
          current_img = msunny;
          current_country = country;
@@ -60,23 +61,24 @@ fetch(url, settings)
          alert('hi2');
     } 
     
-    else if (json.main['temp'] >= 260) {
+    else if (json.main['temp'] >= 270) {
          img.src = mcold;
          current_img = mcold;
          current_country = country;
          img_text.innerText = current_country;
          alert('hi3');
     } 
-    else if (json.main['temp'] < 260) {
+    else if (json.main['temp'] < 270) {
          current_img = vcold;
          current_country = country;
          img.src = current_img;
          img_text.innerText = current_country;
           alert('hi4');
     } else {
-   alert('x');
-} 
-    });
+   alert('Temp is Not number');
+}
+
+  });
 };
 
 
@@ -95,20 +97,44 @@ fetch(geo, settings)
 mybutton.addEventListener("click", myapp);
 
 function myapp() {
+
 let url = "http://api.openweathermap.org/data/2.5/weather?zip="+user_zip.value+"&appid=db6608063a9d72758e29ea323da07bd1";
   if (user_zip.value != "") {
     fetch(url, settings)
     .then(res => res.json())
     .then((json) => {
-        alert(json.main['temp']);
+
+      try {
         mytemp.innerText = json.main['temp'];
         rec_country.innerText = json.sys['country'];
         current_country = json.name;
         img_text.innerText = current_country;
         //show date
         mydate.innerText = newDate;
-});
+        //show image according to wether
+        if (json.main['temp'] >= 296) {
+             img.src = sunny;
 
+        } else if (json.main['temp'] >= 296) {
+             img.src = msunny;
+
+        } else if (json.main['temp'] >= 280) {
+             img.src = mcold;
+
+        } else if (json.main['temp'] < 280) {
+             img.src = vcold;
+
+        } else {
+           console.log(json.main['temp']);
+        }
+        //error handle
+} catch(err) {
+  console.log(err);
+  alert('Please Enter A valid Zip Code');
+  //best thing add this error or any one to database using post
+}
+
+});
 } else {
   alert('You Must Add ZIP Code');
 }
