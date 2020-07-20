@@ -4,10 +4,16 @@ const acountry = document.getElementById("auto_country");
 const acity = document.getElementById("auto_city");
 const atemp = document.getElementById("auto_temp");
 
+
+
 /* normal global */
 const mytemp = document.getElementById("temp");
 const mydate = document.getElementById("date");
 const entery = document.getElementById("content");
+let user_zip = document.getElementById("zip");
+let rec_country = document.getElementById("recent_country");
+
+const mybutton = document.getElementById("generate");
 const img = document.getElementById("mimage");
 const img_text = document.getElementById("image_country");
 
@@ -41,7 +47,7 @@ fetch(url, settings)
      if (json.main['temp'] >= 290) {
          //img.src = sunny;
          current_img = sunny;
-         current_country = country;
+         current_country = city;
          img.src = current_img;
          img_text.innerText = current_country;
          alert('hi1');
@@ -84,3 +90,26 @@ fetch(geo, settings)
         xd(x, country, city);
 });
 
+
+
+mybutton.addEventListener("click", myapp);
+
+function myapp() {
+let url = "http://api.openweathermap.org/data/2.5/weather?zip="+user_zip.value+"&appid=db6608063a9d72758e29ea323da07bd1";
+  if (user_zip.value != "") {
+    fetch(url, settings)
+    .then(res => res.json())
+    .then((json) => {
+        alert(json.main['temp']);
+        mytemp.innerText = json.main['temp'];
+        rec_country.innerText = json.sys['country'];
+        current_country = json.name;
+        img_text.innerText = current_country;
+        //show date
+        mydate.innerText = newDate;
+});
+
+} else {
+  alert('You Must Add ZIP Code');
+}
+}
