@@ -6,3 +6,17 @@ all Automatic with geo location and Advanced logic
 *  https://geolocation-db.com/
 *  https://home.openweathermap.org/api_keys
 *  https://classroom.udacity.com/
+
+
+
+function performAction() {
+  getWeather()
+    .then((data) => {
+      postData("/getweather", {
+        temperature: data.main.temp,
+        date: newDate,
+        userResponse: fellings.value,
+      });
+      updateUI();
+    })   
+}
