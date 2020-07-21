@@ -8,7 +8,7 @@ all Automatic with geo location and Advanced logic
 *  https://classroom.udacity.com/
 
 
-
+```javascript
 function performAction() {
   getWeather()
     .then((data) => {
@@ -20,3 +20,4 @@ function performAction() {
       updateUI();
     })   
 }
+```
